@@ -52,26 +52,29 @@ describe Enumerable do
   end
 
   describe '#my_any?' do
-    it 'returns true if the block is true for at least one of the elements of the enum' do
+    it 'returns true if the block is true for at least one of the elements of the enum, otherwise, return false' do
       expect([5, 7, 3, 1, 2].my_any? {|i| i.even?}).to eql(true)
+      expect([4, 9, 10].my_any? {|i| i > 20}).to eql(false)
     end
   end
 
   describe '#my_any?' do
-    it 'returns false if the block is empty' do
+    it 'returns false if the enumerable is empty' do
       expect([].my_any? {|i| i.even?}).to eql(false)
     end
   end
 
   describe '#my_none?' do
-    it 'returns true if no block is given' do
-      expect([].my_none? {|i| i.even?}).to eql(true)
+    it 'returns false if no block is given' do
+      expect([5, 7, 5].my_none?).to eql(false)
     end
   end
 
   describe '#my_none?' do
-    it 'returns true if the block returns false for all elements of the enum' do
+    it 'returns true if the block returns false for all elements of the enum or enum is empty' do
       expect([3, 5, 6, 7].my_none? {|i| i.even?}).to eql(false)
+      expect([3, 5, 6, 7].my_none? {|i| i > 10}).to eql(true)
+      expect([].my_none? {||i| i < 10}).to eql(true)
     end
   end
 

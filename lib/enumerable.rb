@@ -59,10 +59,14 @@ module Enumerable
 
   def my_none?
     result = true
-    self.my_each do |i|
-      if yield i
-        result = false
+    if block_given?
+      self.my_each do |i|
+        if yield i
+          result = false
+        end
       end
+    else
+      return false
     end
     result
   end
@@ -112,4 +116,4 @@ def multiply_els(arr)
   arr.my_inject(1) { |product, ele| product * ele }
 end
 
-p [].all? {|a| a.match?(/^[A-Z]{1}$/)}
+p [].my_none? {|i| i>2}
