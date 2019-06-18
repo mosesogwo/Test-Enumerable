@@ -38,12 +38,6 @@ describe Enumerable do
     end
   end
 
-  # describe '#my_select' do
-  #   it 'returns an enumerator of values that return true for the block' do
-      
-  #   end
-  # end
-
   describe '#my_all?' do
     it 'returns false if the block is not true for all values of the enum' do
       expect([0, 6, 4, 1, 2].my_all? {|i| i < 3}).to eql(false)
@@ -51,8 +45,9 @@ describe Enumerable do
   end
 
   describe '#my_all?' do
-    it 'returns true if the block is true for all values of the enum' do
+    it 'returns true if the block is true for all values of the enum and for an empty array' do
       expect([0, 6, 4, 2].my_all? {|i| i.even?}).to eql(true)
+      expect([].my_all? {|i| i.even?}).to eql(true)
     end
   end
 
