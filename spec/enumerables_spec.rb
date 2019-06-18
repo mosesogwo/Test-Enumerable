@@ -5,6 +5,7 @@ describe Enumerable do
   describe '#my_each' do
     it 'returns each element' do
       expect([0, 1, 2].my_each).to eql([0, 1, 2])
+      expect([].my_each).to eql([])
     end
   end
 
@@ -17,6 +18,7 @@ describe Enumerable do
   describe '#my_each_with_index' do
     it 'returns the same enumberable if no block is given' do
       expect([0, 10, 8].my_each_with_index).to eql([0, 10, 8])
+      expect([].my_each_with_index).to eql([])
     end
   end
 
@@ -31,14 +33,16 @@ describe Enumerable do
   describe '#my_select' do
     it 'returns an enumerator of values that return true for the block' do
       expect([4, 7, 6].my_select {|i| i.even?}).to eql([4, 6])
-    end
-  end
-
-  describe '#my_select' do
-    it 'returns an enumerator of values that return true for the block' do
+      expect(["a", "b", "D"].my_select {|i| i.match?(/^[A-Z]{1}$/)}).to eql(["D"])
       expect([0, 7, 9, 6, 3].my_select {|i| i < 5}).to eql([0, 3])
     end
   end
+
+  # describe '#my_select' do
+  #   it 'returns an enumerator of values that return true for the block' do
+      
+  #   end
+  # end
 
   describe '#my_all?' do
     it 'returns false if the block is not true for all values of the enum' do
@@ -71,7 +75,7 @@ describe Enumerable do
   end
 
   describe '#my_none?' do
-    it 'returns true  if the block is false for all elements of the enum' do
+    it 'returns true if the block returns false for all elements of the enum' do
       expect([3, 5, 6, 7].my_none? {|i| i.even?}).to eql(false)
     end
   end
