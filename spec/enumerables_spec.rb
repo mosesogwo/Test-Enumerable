@@ -88,8 +88,20 @@ describe Enumerable do
 
   describe '#my_map' do
     it 'returns an enum of the result of proc for each element if proc is given' do
-      proc = Proc.new {|i|, i - 7}
-      expect([10, 12, 1].my_map(proc)).to eql([3, 5, -6])
+      proc = Proc.new {|i| i - 7}
+      expect([10, 12, 1].my_map(&proc)).to eql([3, 5, -6])
+    end
+  end
+
+  describe '#my_map' do
+    it 'returns an enum of the yield for each element if block is given' do
+      expect([10, 12, 1].my_map {|i| i * 2}).to eql([20, 24, 2])
+    end
+  end
+
+  describe '#my_map' do
+    it 'returns the enum if no proc and no block is given' do
+      expect([10, 12, 1].my_map).to eql([10, 12, 1])
     end
   end
 
