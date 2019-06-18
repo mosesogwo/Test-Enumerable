@@ -88,7 +88,8 @@ describe Enumerable do
 
   describe '#my_map' do
     it 'returns an enum of the result of proc for each element if proc is given' do
-      
+      proc = Proc.new {|i|, i - 7}
+      expect([10, 12, 1].my_map(proc)).to eql([3, 5, -6])
     end
   end
 
