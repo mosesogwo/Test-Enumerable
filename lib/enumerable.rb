@@ -111,5 +111,3 @@ end
 def multiply_els(arr)
   arr.my_inject(1) { |product, ele| product * ele }
 end
-
-p [].none?
