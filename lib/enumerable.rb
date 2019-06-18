@@ -4,9 +4,17 @@
 # all, any, none, count, map and inject enumerable methods.
 module Enumerable
   def my_each
-    for i in self
-      yield i
+    each = []
+    if block_given?
+      for i in self
+        each << (yield i)
+      end
+    else
+      for i in self
+        each << i
+      end
     end
+    each
   end
 
   def my_each_with_index
@@ -100,3 +108,5 @@ end
 def multiply_els(arr)
   arr.my_inject(1) { |product, ele| product * ele }
 end
+
+p [9, 4, 1].my_each
