@@ -111,3 +111,6 @@ end
 def multiply_els(arr)
   arr.my_inject(1) { |product, ele| product * ele }
 end
+
+arr = [ ]
+p [7, 6, 7].each_with_index {|a, b| arr<<a*b}

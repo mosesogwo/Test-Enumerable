@@ -14,11 +14,19 @@ describe Enumerable do
     end
   end
 
-  # describe '#my_each_with_index' do
-  #   it 'returns the same enumberable if no block is given' do
-  #     expect([0, 10, 8].my_each_with_index).to eql([0, 10, 8])
-  #   end
-  # end
+  describe '#my_each_with_index' do
+    it 'returns the same enumberable if no block is given' do
+      expect([0, 10, 8].my_each_with_index).to eql([0, 10, 8])
+    end
+  end
+
+  describe '#my_each_with_index' do
+    it 'calls block for each [value, index] pair in the enumerable' do
+      arr = []
+      [0, 8, 7, 5].my_each_with_index {|i, idx| arr << i+idx}
+      expect(arr).to eql([0, 9, 9, 8])
+    end
+  end
 
   describe '#my_select' do
     it 'returns an enumerator of values that return true for the block' do
