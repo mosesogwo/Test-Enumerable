@@ -64,6 +64,7 @@ module Enumerable
         result = false
       end
     end
+    result
   end
 
   def my_count(arg=nil)
@@ -111,5 +112,4 @@ def multiply_els(arr)
   arr.my_inject(1) { |product, ele| product * ele }
 end
 
-
-p [].any? {|i| i.even?}
+p [].none?

@@ -33,7 +33,7 @@ describe Enumerable do
   end
 
   describe '#my_all?' do
-    it 'returns true if the block is true for all values of the enum' do
+    it 'returns false if the block is not true for all values of the enum' do
       expect([0, 6, 4, 1, 2].my_all? {|i| i < 3}).to eql(false)
     end
   end
@@ -51,8 +51,44 @@ describe Enumerable do
   end
 
   describe '#my_any?' do
-    it 'returns true if the block is true for at least one of the elements of the enum' do
+    it 'returns false if the block is empty' do
       expect([].my_any? {|i| i.even?}).to eql(false)
+    end
+  end
+
+  describe '#my_none?' do
+    it 'returns true if no block is given' do
+      expect([].my_none? {|i| i.even?}).to eql(true)
+    end
+  end
+
+  describe '#my_none?' do
+    it 'returns true  if the block is false for all elements of the enum' do
+      expect([3, 5, 6, 7].my_none? {|i| i.even?}).to eql(false)
+    end
+  end
+
+  describe '#my_count' do
+    it 'returns the # of times the block is true for each element of the enum' do
+      expect([7, 1, 3, 5].my_count {|i| i ** 2 < 10}).to eql(2)
+    end
+  end
+
+  describe '#my_count' do
+    it 'returns the length of enum if no block and no arg is given' do
+      expect([7, 1, 3, 5].my_count).to eql(4)
+    end
+  end
+
+  describe '#my_count' do
+    it 'returns the # of times the block yields a value equal to a given arg' do
+      expect([7, 1, 3, 5].my_count(3)).to eql(1)
+    end
+  end
+
+  describe '#my_map' do
+    it 'returns an enum of the result of proc for each element if proc is given' do
+      
     end
   end
 
