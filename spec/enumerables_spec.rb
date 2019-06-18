@@ -114,7 +114,7 @@ describe Enumerable do
   end
 
   describe '#my_inject' do
-    it 'combines all elements of an enum with a binary operation, start with zero if no rg is given' do
+    it 'combines all elements of an enum with a binary operation, start with zero if no arg is given' do
       expect([10, 20, 30].my_inject {|memo, i| memo + i}).to eql(60)
     end
   end
