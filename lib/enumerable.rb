@@ -10,18 +10,20 @@ module Enumerable
         each << (yield i)
       end
     else
-      for i in self
-        each << i
-      end
+      each = self
     end
     each
   end
 
   def my_each_with_index
     idx = 0
-    for i in self
-      yield i, idx
-      idx += 1
+    if block_given?
+      for i in self
+        yield(i, idx)
+        idx += 1
+      end
+    else
+      return self
     end
   end
 
@@ -109,4 +111,5 @@ def multiply_els(arr)
   arr.my_inject(1) { |product, ele| product * ele }
 end
 
-p [9, 4, 1].my_each
+
+p [].any? {|i| i.even?}
