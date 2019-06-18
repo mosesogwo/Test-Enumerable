@@ -96,6 +96,13 @@ describe Enumerable do
     end
   end
 
+  describe '#my_count' do
+    it 'returns zero if enum is empty' do
+      expect([].my_count(3)).to eql(0)
+    end
+  end
+
+
   describe '#my_map' do
     it 'returns an enum of the result of proc for each element if proc is given' do
       proc = Proc.new {|i| i - 7}
@@ -115,6 +122,15 @@ describe Enumerable do
     end
   end
 
+  describe '#my_map' do
+    it 'returns empty enumerable if given enumerable is empty' do
+      proc = Proc.new {|i| i - 7}
+      expect([].my_map).to eql([])
+      expect([].my_map {|i| i * 2}).to eql([])
+      expect([].my_map(&proc)).to eql([])
+    end
+  end
+
   describe '#my_inject' do
     it 'combines all elements of an enum with a binary operation, start with zero if no arg is given' do
       expect([10, 20, 30].my_inject {|memo, i| memo + i}).to eql(60)
@@ -123,7 +139,7 @@ describe Enumerable do
 
   describe '#my_inject' do
     it 'combines all elements of an enum with a binary operation, start with an arg if provided' do
-      expect([10, 20, 30].my_inject(20) {|memo, i| memo + i}).to eql(80)
+      expect([10, 20, 30].my_inject(20) {|memo, i| memo * i}).to eql(120000)
     end
   end
 
