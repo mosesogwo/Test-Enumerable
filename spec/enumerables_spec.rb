@@ -152,19 +152,27 @@ describe Enumerable do
       result = [10, 12, 1].my_map
       expect(result).to eql([10, 12, 1])
     end
-    
   end
 
+  describe '#my_inject should return' do
+    it 'the sum of all elements of the array' do
+      result = [2, 4, 6].my_inject {|memo, i| memo + i}
+      expect(result).to eql(12)
+    end
 
+    it 'the product of all elements of the array' do
+      result = [2, 4, 6].my_inject {|memo, i| memo * i}
+      expect(result).to eql(48)
+    end
+
+    it 'the product of all elements of the array including the arg' do
+      result = [2, 4, 6].my_inject(2) {|memo, i| memo * i}
+      expect(result).to eql(96)
+    end
+
+    it 'nil, if the array is empty and no arg is given' do
+      result = [].my_inject {|memo, i| memo * i}
+      expect(result).to be nil
+    end
+  end
 end
-  # describe '#my_inject' do
-  #   it 'combines all elements of an enum with a binary operation, start with zero if no arg is given' do
-  #     expect([10, 20, 30].my_inject {|memo, i| memo + i}).to eql(60)
-  #   end
-  # end
-
-  # describe '#my_inject' do
-  #   it 'combines all elements of an enum with a binary operation, start with an arg if provided' do
-  #     expect([10, 20, 30].my_inject(20) {|memo, i| memo * i}).to eql(120000)
-  #   end
-  # end
