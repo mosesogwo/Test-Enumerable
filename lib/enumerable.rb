@@ -28,11 +28,15 @@ module Enumerable
   end
 
   def my_select
-    collection = []
-    self.my_each do |i|
-      if yield i
-        collection << i
+    if block_given?
+      collection = []
+      self.my_each do |i|
+        if yield i
+          collection << i
+        end
       end
+    else
+      return self
     end
     collection
   end
@@ -119,4 +123,4 @@ def multiply_els(arr)
 end
 
 
-# p [5, 6].my_inject(3) {|a, i|  a*i}
+p [].my_all?

@@ -51,29 +51,37 @@ describe Enumerable do
       result = ["a", "b", "D"].my_select {|i| i.match?(/^[A-Z]{1}$/)}
       expect(result).to eql(["D"])
     end
+
+    it 'empty array if given an empty array' do
+      result = [].my_select {|i| i.match?(/^[A-Z]{1}$/)}
+      expect(result).to eql([])
+    end
+
+    it 'the same array if no block is given' do
+      result = [8, 9, 4, 2].my_select
+      expect(result).to eql([8, 9, 4, 2])
+    end
   end
 
+  describe '#my_all? should return' do
+      it 'false if the block does not yield true for all values of the array' do
+        result = [0, 6, 4, 1, 2].my_all? {|i| i < 3}
+        expect(result).to eql(false)
+      end
+
+      it 'true if the block yields true for all values of the array' do
+        result = [0, 6, 4, 1, 2].my_all? {|i| i.is_a?(Integer)}
+        expect(result).to eql(true)
+      end
+
+      it 'true for an empty array' do
+        result = [].my_all? {|i| i.is_a?(Integer)}
+        expect(result).to eql(true)
+      end
+  end
 end
 
-  # 
-      
-  #     expect()
-  #     expect([0, 7, 9, 6, 3].my_select {|i| i < 5}).to eql([0, 3])
-  #   end
-  # end
 
-  # describe '#my_all?' do
-  #   it 'returns false if the block is not true for all values of the enum' do
-  #     expect([0, 6, 4, 1, 2].my_all? {|i| i < 3}).to eql(false)
-  #   end
-  # end
-
-  # describe '#my_all?' do
-  #   it 'returns true if the block is true for all values of the enum and for an empty array' do
-  #     expect([0, 6, 4, 2].my_all? {|i| i.even?}).to eql(true)
-  #     expect([].my_all? {|i| i.even?}).to eql(true)
-  #   end
-  # end
 
   # describe '#my_any?' do
   #   it 'returns true if the block is true for at least one of the elements of the enum, otherwise, return false' do
