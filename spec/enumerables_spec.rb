@@ -20,29 +20,44 @@ describe Enumerable do
     end
   end
 
-  # describe '#my_each' do
-  #   
-  # end
+  describe '#my_each_with_index should return' do
+    it 'the same array if no block is given' do
+      arr = [0, 10, 8]
+      result = arr.my_each_with_index
+      expect(result).to eql([0, 10, 8])
+    end
 
-  # describe '#my_each_with_index' do
-  #   it 'returns the same enumberable if no block is given' do
-  #     expect([0, 10, 8].my_each_with_index).to eql([0, 10, 8])
-  #     expect([].my_each_with_index).to eql([])
-  #   end
-  # end
+    it 'an empty array if an empty array is given' do
+      result = [].my_each_with_index
+      expect(result).to eql([])
+    end
 
-  # describe '#my_each_with_index' do
-  #   it 'calls block for each [value, index] pair in the enumerable' do
-  #     arr = []
-  #     [0, 8, 7, 5].my_each_with_index {|i, idx| arr << i+idx}
-  #     expect(arr).to eql([0, 9, 9, 8])
-  #   end
-  # end
+    it 'the yield for each (element, index) pair in the given array if block is given' do
+      holder = []
+      [0, 8, 7, 5].my_each_with_index do |i, idx|
+        holder << i + idx
+      end
+      expect(holder).to eql([0, 9, 9, 8])
+    end
+  end
 
-  # describe '#my_select' do
-  #   it 'returns an enumerator of values that return true for the block' do
-  #     expect([4, 7, 6].my_select {|i| i.even?}).to eql([4, 6])
-  #     expect(["a", "b", "D"].my_select {|i| i.match?(/^[A-Z]{1}$/)}).to eql(["D"])
+  describe '#my_select should return' do
+    it 'array of values that return true for the block' do
+      result = [4, 7, 6].my_select {|i| i.even?}
+      expect(result).to eql([4, 6])
+    end
+
+    it 'array of values that return true for the block' do
+      result = ["a", "b", "D"].my_select {|i| i.match?(/^[A-Z]{1}$/)}
+      expect(result).to eql(["D"])
+    end
+  end
+
+end
+
+  # 
+      
+  #     expect()
   #     expect([0, 7, 9, 6, 3].my_select {|i| i < 5}).to eql([0, 3])
   #   end
   # end
@@ -151,5 +166,3 @@ describe Enumerable do
   #     expect([10, 20, 30].my_inject(20) {|memo, i| memo * i}).to eql(120000)
   #   end
   # end
-
-end
