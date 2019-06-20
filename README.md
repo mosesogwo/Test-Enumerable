@@ -13,4 +13,4 @@ This project is a recreation of the following ruby enumerable methods
 The custom method names are prefixed with 'my_'. E,g my_each
 
 ## Participants
-- Moses Ogwo
+- [Moses Ogwo](https://github.com/mosesogwo)
