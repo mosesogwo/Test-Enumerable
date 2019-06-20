@@ -97,33 +97,37 @@ describe Enumerable do
     end
   end
 
+  describe '#my_none? should return' do
+    it 'false if no block is given' do
+      result = [5, 7, 5].my_none?
+      expect(result).to eql(false)
+    end
+
+    it 'true if block yields false for all elements of the array' do
+      result = [3, 5, 6, 7].my_none? {|i| i > 10}
+      expect(result).to eql(true)
+    end
+
+    it 'false if block yields true for any element of the array' do
+      result = [3, 5, 6, 7].my_none? {|i| i.even?}
+      expect(result).to eql(false)
+    end
+  end
+
+  
+
 end
 
 
 
-  # describe '#my_any?' do
-  #   it 'returns true if the block is true for at least one of the elements of the enum, otherwise, return false' do
-  #     expect([5, 7, 3, 1, 2].my_any? {|i| i.even?}).to eql(true)
-  #     
-  #   end
-  # end
+  
 
-  # describe '#my_any?' do
-  #   it 'returns false if the enumerable is empty' do
-  #     expect([].my_any? {|i| i.even?}).to eql(false)
-  #   end
-  # end
-
-  # describe '#my_none?' do
-  #   it 'returns false if no block is given' do
-  #     expect([5, 7, 5].my_none?).to eql(false)
-  #   end
-  # end
+  
 
   # describe '#my_none?' do
   #   it 'returns true if the block returns false for all elements of the enum or enum is empty' do
-  #     expect([3, 5, 6, 7].my_none? {|i| i.even?}).to eql(false)
-  #     expect([3, 5, 6, 7].my_none? {|i| i > 10}).to eql(true)
+  #     
+  #     
   #     expect([].my_none? {||i| i < 10}).to eql(true)
   #   end
   # end
