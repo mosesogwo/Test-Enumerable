@@ -103,19 +103,15 @@ module Enumerable
     result
   end
 
-  def my_inject()
-    if arg == nil
-      self.my_each do |i|
-        memo = (yield memo, i)
-      end
-    else
-      memo = arg
-      self.my_each do |i|
-        memo = (yield memo, i)
-      end
-    end
-    memo
-  end
+#   def my_inject (*memo)
+#     if memo.size > 0
+#       memo = memo[0].is_a?(Numeric) ? memo[0] : self.first
+#     end
+#     if block_given?
+#       self.drop(1).each {|memo, i| memo = yield(memo, i)}
+#     end
+#     memo
+#   end
 end
 
 def multiply_els(arr)
@@ -123,4 +119,4 @@ def multiply_els(arr)
 end
 
 
-p [5, 6].my_inject {|memo, i| memo * i}
+# p [5, 6].my_inject(3) {|a, i|  a*i}
