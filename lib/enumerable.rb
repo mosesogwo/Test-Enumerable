@@ -77,16 +77,16 @@ module Enumerable
 
   def my_count(arg=nil)
     count = 0
-    if block_given?
-      self.my_each do |i| 
-        count += 1 if yield i
-      end
-    elsif not arg
-      count = self.length
-    else
+    if arg
       self.my_each do |i|
         count += 1 if i.equal?(arg)
       end
+    elsif block_given?
+      self.my_each do |i| 
+        count += 1 if yield i
+      end
+    else
+      count = self.length
     end
     count
   end
@@ -123,4 +123,4 @@ def multiply_els(arr)
 end
 
 
-p [].my_all?
+p [2, 4, 6].my_count(3) {|x| x+1}

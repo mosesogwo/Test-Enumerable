@@ -114,77 +114,49 @@ describe Enumerable do
     end
   end
 
-  
+  describe '#my_count should return' do
+      it 'the length of array if no block and no arg is given' do
+        result = [7, 1, 3, 5].my_count
+        expect(result).to eql(4)
+      end
+
+      it 'the # of times a value in the array is equal to the arg given' do
+        result = [7, 1, 3, 5].my_count(3)
+        expect(result).to eql(1)
+      end
+
+      it 'the # of times a block yields true for the elements of the array if block is given' do
+        result = [7, 1, 3, 5].my_count {|i| i ** 2 < 10}
+        expect(result).to eql(2)
+      end
+
+      it 'ignore the block if both block and arg are given' do
+        result = [7, 1, 3, 5].my_count(5) {|i| i ** 2 < 10}
+        expect(result).to eql(1)
+      end
+    end
+
+  describe '#my_map should return' do
+    it 'an array of the result of proc call for each element if proc is given' do
+      proc = Proc.new {|i| i - 7}
+      result = [10, 12, 1].my_map(&proc)
+      expect(result).to eql([3, 5, -6])
+    end
+
+    it 'an array of the yield for each element if block is given' do
+      result = [10, 12, 1].my_map {|i| i * 2}
+      expect(result).to eql([20, 24, 2])
+    end
+
+    it 'same array if no proc or block is given' do
+      result = [10, 12, 1].my_map
+      expect(result).to eql([10, 12, 1])
+    end
+    
+  end
+
 
 end
-
-
-
-  
-
-  
-
-  # describe '#my_none?' do
-  #   it 'returns true if the block returns false for all elements of the enum or enum is empty' do
-  #     
-  #     
-  #     expect([].my_none? {||i| i < 10}).to eql(true)
-  #   end
-  # end
-
-  # describe '#my_count' do
-  #   it 'returns the # of times the block is true for each element of the enum' do
-  #     expect([7, 1, 3, 5].my_count {|i| i ** 2 < 10}).to eql(2)
-  #   end
-  # end
-
-  # describe '#my_count' do
-  #   it 'returns the length of enum if no block and no arg is given' do
-  #     expect([7, 1, 3, 5].my_count).to eql(4)
-  #   end
-  # end
-
-  # describe '#my_count' do
-  #   it 'returns the # of times the block yields a value equal to a given arg' do
-  #     expect([7, 1, 3, 5].my_count(3)).to eql(1)
-  #   end
-  # end
-
-  # describe '#my_count' do
-  #   it 'returns zero if enum is empty' do
-  #     expect([].my_count(3)).to eql(0)
-  #   end
-  # end
-
-
-  # describe '#my_map' do
-  #   it 'returns an enum of the result of proc for each element if proc is given' do
-  #     proc = Proc.new {|i| i - 7}
-  #     expect([10, 12, 1].my_map(&proc)).to eql([3, 5, -6])
-  #   end
-  # end
-
-  # describe '#my_map' do
-  #   it 'returns an enum of the yield for each element if block is given' do
-  #     expect([10, 12, 1].my_map {|i| i * 2}).to eql([20, 24, 2])
-  #   end
-  # end
-
-  # describe '#my_map' do
-  #   it 'returns the enum if no proc and no block is given' do
-  #     expect([10, 12, 1].my_map).to eql([10, 12, 1])
-  #   end
-  # end
-
-  # describe '#my_map' do
-  #   it 'returns empty enumerable if given enumerable is empty' do
-  #     proc = Proc.new {|i| i - 7}
-  #     expect([].my_map).to eql([])
-  #     expect([].my_map {|i| i * 2}).to eql([])
-  #     expect([].my_map(&proc)).to eql([])
-  #   end
-  # end
-
   # describe '#my_inject' do
   #   it 'combines all elements of an enum with a binary operation, start with zero if no arg is given' do
   #     expect([10, 20, 30].my_inject {|memo, i| memo + i}).to eql(60)
