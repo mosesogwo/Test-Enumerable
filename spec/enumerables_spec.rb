@@ -79,6 +79,24 @@ describe Enumerable do
         expect(result).to eql(true)
       end
   end
+
+  describe '#my_any should return' do
+    it 'true if the block yields true for any element of the array' do
+      result = [5, 7, 3, 1, 2].my_any? {|i| i.even?}
+      expect(result).to eql(true)
+    end
+
+    it 'false if the block yields false for all elements of the array' do
+      result = [4, 9, 10].my_any? {|i| i > 20}
+      expect(result).to eql(false)
+    end
+
+    it 'false for an empty array' do
+      result = [].my_any? {|i| i > 20}
+      expect(result).to eql(false)
+    end
+  end
+
 end
 
 
@@ -86,7 +104,7 @@ end
   # describe '#my_any?' do
   #   it 'returns true if the block is true for at least one of the elements of the enum, otherwise, return false' do
   #     expect([5, 7, 3, 1, 2].my_any? {|i| i.even?}).to eql(true)
-  #     expect([4, 9, 10].my_any? {|i| i > 20}).to eql(false)
+  #     
   #   end
   # end
 
