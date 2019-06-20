@@ -6,7 +6,7 @@ module Enumerable
   def my_each
     each = []
     if block_given?
-      for i in self
+      self.each do |i|
         each << (yield i)
       end
     else
@@ -18,7 +18,7 @@ module Enumerable
   def my_each_with_index
     idx = 0
     if block_given?
-      for i in self
+      each do |i|
         yield(i, idx)
         idx += 1
       end
@@ -30,10 +30,8 @@ module Enumerable
   def my_select
     if block_given?
       collection = []
-      self.my_each do |i|
-        if yield i
-          collection << i
-        end
+      my_each do |i|
+        collection << i if yield i
       end
     else
       return self
@@ -43,20 +41,16 @@ module Enumerable
 
   def my_all?
     result = true
-    self.my_each do |i|
-      if not yield i 
-        result = false
-      end
+    my_each do |i|
+      result = false unless yield i
     end
     result
   end
 
   def my_any?
     result = false
-    self.my_each do |i|
-      if yield i
-        result = true
-      end
+    my_each do |i|
+      result = true if yield i
     end
     result
   end
@@ -64,10 +58,8 @@ module Enumerable
   def my_none?
     result = true
     if block_given?
-      self.my_each do |i|
-        if yield i
-          result = false
-        end
+      my_each do |i|
+        result = false if yield i
       end
     else
       return false
@@ -75,18 +67,18 @@ module Enumerable
     result
   end
 
-  def my_count(arg=nil)
+  def my_count(arg = nil)
     count = 0
     if arg
-      self.my_each do |i|
+      my_each do |i|
         count += 1 if i.equal?(arg)
       end
     elsif block_given?
-      self.my_each do |i| 
+      my_each do |i|
         count += 1 if yield i
       end
     else
-      count = self.length
+      count = length
     end
     count
   end
@@ -94,11 +86,11 @@ module Enumerable
   def my_map(&proc)
     result = []
     if proc
-      self.my_each do |i|
+      my_each do |i|
         result << proc.call(i)
       end
     elsif block_given?
-      self.my_each do |i|
+      my_each do |i|
         result << (yield i)
       end
     else
@@ -108,24 +100,17 @@ module Enumerable
   end
 
   def my_inject(*arg)
-    if arg.length > 0
+    if !arg.empty?
       memo = arg[0]
-      self.my_each do |i|
+      my_each do |i|
         memo = (yield memo, i)
       end
     else
-      memo = self.first
-      self.drop(1).my_each do |i|
+      memo = first
+      drop(1).my_each do |i|
         memo = (yield memo, i)
       end
     end
     memo
   end
 end
-
-def multiply_els(arr)
-  arr.my_inject(1) { |product, ele| product * ele }
-end
-
-
-p [].inject {|acc, i| i - acc}
