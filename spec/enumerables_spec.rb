@@ -3,7 +3,7 @@
 require './lib/enumerable.rb'
 
 describe Enumerable do
-  let (:arr) {[1, 2, 7, 8, 5]}
+  let(:arr) { [1, 2, 7, 8, 5] }
 
   describe '#my_each should return' do
     it 'an array holding all elements of the given array' do
