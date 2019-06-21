@@ -4,15 +4,14 @@
 # all, any, none, count, map and inject enumerable methods.
 module Enumerable
   def my_each
-    result = []
     if block_given?
       for i in self
-        result << (yield i)
+        yield i
       end
+      self
     else
-      return self
+      return self.to_enum
     end
-    result
   end
 
   def my_each_with_index
@@ -23,7 +22,7 @@ module Enumerable
         idx += 1
       end
     else
-      return self
+      return self.to_enum
     end
   end
 
@@ -34,7 +33,7 @@ module Enumerable
         collection << i if yield i
       end
     else
-      return self
+      return self.to_enum
     end
     collection
   end
