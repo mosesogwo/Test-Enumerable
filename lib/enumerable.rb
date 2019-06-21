@@ -4,21 +4,21 @@
 # all, any, none, count, map and inject enumerable methods.
 module Enumerable
   def my_each
-    each = []
+    result = []
     if block_given?
-      self.each do |i|
-        each << (yield i)
+      for i in self
+        result << (yield i)
       end
     else
       return self
     end
-    each
+    result
   end
 
   def my_each_with_index
     idx = 0
     if block_given?
-      each do |i|
+      my_each do |i|
         yield(i, idx)
         idx += 1
       end
