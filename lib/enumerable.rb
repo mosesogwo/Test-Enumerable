@@ -115,7 +115,6 @@ module Enumerable
     end
     memo
   end
-
 end
 
 p [1, 2, 7, 8, 5].my_select

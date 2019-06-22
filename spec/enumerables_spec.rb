@@ -135,7 +135,7 @@ describe Enumerable do
       expect(result).to eql(arr.to_enum)
     end
   end
-  
+
   describe '#my_inject should return' do
     it 'the sum of all elements of the array' do
       result = arr.my_inject { |memo, i| memo + i }
