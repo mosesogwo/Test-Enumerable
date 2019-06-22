@@ -22,7 +22,7 @@ module Enumerable
         idx += 1
       end
     else
-      return self.to_enum
+      return to_enum
     end
   end
 
@@ -42,74 +42,13 @@ module Enumerable
     result = true
     my_each do |i|
       result = false unless yield i
+      break if not result
     end
     result
   end
 
-  def my_any?
-    result = false
-    my_each do |i|
-      result = true if yield i
-    end
-    result
-  end
-
-  def my_none?
-    result = true
-    if block_given?
-      my_each do |i|
-        result = false if yield i
-      end
-    else
-      return false
-    end
-    result
-  end
-
-  def my_count(arg = nil)
-    count = 0
-    if arg
-      my_each do |i|
-        count += 1 if i.equal?(arg)
-      end
-    elsif block_given?
-      my_each do |i|
-        count += 1 if yield i
-      end
-    else
-      count = length
-    end
-    count
-  end
-
-  def my_map(&proc)
-    result = []
-    if proc
-      my_each do |i|
-        result << proc.call(i)
-      end
-    elsif block_given?
-      my_each do |i|
-        result << (yield i)
-      end
-    else
-      result = self
-    end
-    result
-  end
-
-  def my_inject(*arg)
-    if !arg.empty?
-      memo = arg[0]
-      my_each do |i|
-        memo = (yield memo, i)
-      end
-    else
-      memo = first
-      drop(1).my_each do |i|
-        memo = (yield memo, i)
-      end
-    end
-    memo
-  end
 end
+
+p [1, 2, 7, 8, 5].my_select
+# p [1, 2, 7, 8, 5].my_each_with_index
+# {|x| x + 1}
