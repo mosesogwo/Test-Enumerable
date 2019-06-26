@@ -4,6 +4,7 @@ require './lib/enumerable.rb'
 
 describe Enumerable do
   let(:arr) { [1, 2, 7, 8, 5] }
+  let(:n) {arr.length}
 
   describe '#my_each should' do
     it 'call the given block once for each element in self' do
@@ -17,7 +18,7 @@ describe Enumerable do
     end
 
     it 'return an enumerator if no block is given' do
-      expect(arr.my_each).to eql(arr.each)
+      expect(arr.my_each.take n).to eql(arr.each.take n)
     end
   end
 
@@ -33,8 +34,9 @@ describe Enumerable do
     end
 
     it 'return an enumerator if no block is given' do
-      result = arr.my_each_with_index
-      expect(result).to eql(arr.each_with_index)
+      result1 = arr.my_each_with_index
+      result2 = arr.each_with_index
+      expect(result1.take n).to eql(result2.take n)
     end
   end
 
@@ -50,7 +52,7 @@ describe Enumerable do
     end
 
     it 'an enumerator if no block is given' do
-      expect(arr.my_select).to eql(arr.to_enum)
+      expect(arr.my_select.take n).to eql(arr.select.take n)
     end
   end
 
@@ -134,7 +136,7 @@ describe Enumerable do
     end
 
     it 'an enumerator if no proc or block is given' do
-      expect(arr.my_map).to eql(arr.map)
+      expect(arr.my_map.take n).to eql(arr.map.take n)
     end
   end
 

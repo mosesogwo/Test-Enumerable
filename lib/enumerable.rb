@@ -10,7 +10,7 @@ module Enumerable
       end
       self
     else
-      return to_enum
+      enum_for(:my_each)
     end
   end
 
@@ -22,7 +22,7 @@ module Enumerable
         idx += 1
       end
     else
-      return to_enum
+      enum_for(:my_each_with_index)
     end
   end
 
@@ -96,7 +96,7 @@ module Enumerable
         result << (yield i)
       end
     else
-      return self.to_enum
+      return enum_for(:my_map)
     end
     result
   end
@@ -116,7 +116,3 @@ module Enumerable
     memo
   end
 end
-
-p [1, 2, 7, 8, 5].my_select
-# p [1, 2, 7, 8, 5].my_each_with_index
-# {|x| x + 1}
