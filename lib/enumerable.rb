@@ -10,7 +10,7 @@ module Enumerable
       end
       self
     else
-      return self.to_enum
+      return to_enum
     end
   end
 

@@ -5,35 +5,43 @@ require './lib/enumerable.rb'
 describe Enumerable do
   let(:arr) { [1, 2, 7, 8, 5] }
 
-  describe '#my_each should return' do
-    it 'the yield at the instance of each element if given a block' do
-      result = []
-      arr.my_each { |x| result << x + 2 }
-      expect(result).to eql([3, 4, 9, 10, 7])
+  describe '#my_each should' do
+    it 'call the given block once for each element in self' do
+      my_each_output = ''
+      block = proc { |num| my_each_output += num.to_s }
+      arr.each(&block)
+      each_output = my_each_output.dup
+      my_each_output = ''
+      arr.my_each(&block)
+      expect(my_each_output).to eq(each_output)
     end
 
-    # it 'an enumerator if no block is given' do
-    #   expect(arr.my_each).to eql(arr.each)
-    # end
+    it 'return an enumerator if no block is given' do
+      expect(arr.my_each).to eql(arr.each)
+    end
   end
 
-  describe '#my_each_with_index should return' do
-    it 'the yield for each (element, index) pair in the given array if block is given' do
-      holder = []
-      arr.my_each_with_index { |i, idx| holder << i + idx }
-      expect(holder).to eql([1, 3, 9, 11, 9])
+  describe '#my_each_with_index should' do
+    it 'call the block for each element/index pair in the the array' do
+      my_each_widx_output = ''
+      block = proc { |i, idx| my_each_widx_output += i.to_s + idx.to_s }
+      arr.each_with_index(&block)
+      each_widx_output = my_each_widx_output.dup
+      my_each_widx_output = ''
+      arr.my_each_with_index(&block)
+      expect(my_each_widx_output).to eql(each_widx_output)
     end
 
     it 'an enumerator if no block is given' do
       result = arr.my_each_with_index
-      expect(result).to eql(arr.to_enum)
+      expect(result).to eql(arr.each_with_index)
     end
   end
 
   describe '#my_select should return' do
     it 'array of values that return true for a given block' do
-      result = arr.my_select { |i| i.even? }
-      expect(result).to eql([2, 8])
+      block = proc { |i| i.even? }
+      expect(arr.my_select(&block)).to eql(arr.select(&block))
     end
 
     it 'array of values that return true for a given block' do
@@ -122,17 +130,11 @@ describe Enumerable do
     it 'an array of the result of proc call for each element if proc is given' do
       proc = proc { |i| i - 7 }
       result = arr.my_map(&proc)
-      expect(result).to eql([-6, -5, 0, 1, -2])
-    end
-
-    it 'an array of the yield for each element if block is given' do
-      result = arr.my_map { |i| i * 2 }
-      expect(result).to eql([2, 4, 14, 16, 10])
+      expect(result).to eql(arr.map(&proc))
     end
 
     it 'an enumerator if no proc or block is given' do
-      result = arr.my_map
-      expect(result).to eql(arr.to_enum)
+      expect(arr.my_map).to eql(arr.map)
     end
   end
 
