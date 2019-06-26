@@ -32,7 +32,7 @@ describe Enumerable do
       expect(my_each_widx_output).to eql(each_widx_output)
     end
 
-    it 'an enumerator if no block is given' do
+    it 'return an enumerator if no block is given' do
       result = arr.my_each_with_index
       expect(result).to eql(arr.each_with_index)
     end
